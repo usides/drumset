@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Drumset</title>
+	<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+	<section id="header">
+		<div class="container">
+			<div class="wrap">
+				<div data-key="65" data-code="65" class="item">
+					<p data-code="65" class="keybut 65">A</p>
+					<p data-code="65" class="keydesc 65">Clap</p>
+				</div>
+				<div data-key="83" data-code="83" class="item">
+					<p data-code="83" class="keybut">S</p>
+					<p data-code="83" class="keydesc">Hihat</p>
+				</div>
+				<div data-key="68" data-code="68" class="item">
+					<p data-code="68" class="keybut">D</p>
+					<p data-code="68" class="keydesc">Kick</p>
+				</div>
+				<div data-key="70" data-code="70" class="item">
+					<p data-code="70" class="keybut">F</p>
+					<p data-code="70" class="keydesc">Openhat</p>
+				</div>
+				<div data-key="71" d70ata-code="71" class="item">
+					<p data-code="71" class="keybut">G</p>
+					<p data-code="71" class="keydesc">Boom</p>
+				</div>
+				<div data-key="72" data-code="72" class="item">
+					<p data-code="72" class="keybut">H</p>
+					<p data-code="72" class="keydesc">Ride</p>
+				</div>
+				<div data-key="74" data-code="74" class="item">
+					<p data-code="74" class="keybut">J</p>
+					<p data-code="74" class="keydesc">Snare</p>
+				</div>
+				<div data-key="75" data-code="75" class="item">
+					<p data-code="75" class="keybut">K</p>
+					<p data-code="75" class="keydesc">Tom</p>
+				</div>
+				<div data-key="76" data-code="76" class="item">
+					<p data-code="76" class="keybut">L</p>
+					<p data-code="76" class="keydesc">Tink</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+  <audio data-key="65" src="sounds/clap.wav"></audio>
+  <audio data-key="83" src="sounds/hihat.wav"></audio>
+  <audio data-key="68" src="sounds/kick.wav"></audio>
+  <audio data-key="70" src="sounds/openhat.wav"></audio>
+  <audio data-key="71" src="sounds/boom.wav"></audio>
+  <audio data-key="72" src="sounds/ride.wav"></audio>
+  <audio data-key="74" src="sounds/snare.wav"></audio>
+  <audio data-key="75" src="sounds/tom.wav"></audio>
+  <audio data-key="76" src="sounds/tink.wav"></audio>
+
+	<script>
+
+	function removeTransition(e) {
+		if (e.propertyName != "transform") return;
+		this.classList.remove('playing');	
+	}
+
+	function play(e) {
+		const audio = document.querySelector('audio[data-key="' + e.keyCode + '"]') || document.querySelector('audio[data-key="' + e.target.dataset.code + '"]');
+		const item = document.querySelector('.item[data-key="' + e.keyCode + '"]') || document.querySelector('.item[data-key="' + e.target.dataset.code + '"]');
+		if (!audio) return;
+		audio.currentTime = 0;
+		audio.play();
+		item.classList.add('playing');	
+	}
+
+	const items = document.querySelectorAll('.item');
+	items.forEach(key => {
+		key.addEventListener('transitionend', removeTransition);
+		key.addEventListener('click', play);
+		return;
+	});
+
+	window.addEventListener("keydown", play);
+
+
+
+	
+	</script>
+
+</body>
+</html>
